@@ -1,0 +1,10 @@
+public class ArregloGenerico {
+    
+    public static <T extends Comparable<T>> int busquedaSecuencial(T[] a, T dato, int n){
+        if(n==0)
+            return -1;
+        else if(dato.equals(a[n]))
+            return n;
+        else
+            return(busquedaSecuencial(a,dato,n-1));
+    }
