@@ -8,3 +8,25 @@ public class ArregloGenerico {
         else
             return(busquedaSecuencial(a,dato,n-1));
     }
+    
+ public class Hanoi {
+    public static void torresHanoi(String tO, String tA, String tD, int n){
+        if(tO!=null && tA!=null && tD!=null && n>0)
+            torresHanoiR(tO,tA,tD,n);
+    }
+    
+    private static void torresHanoiR(String tO, String tA, String tD, int n){
+        if(n==1)
+            System.out.println("Mover 1 disco de "+tO+" a "+tD);
+        else{
+            torresHanoiR(tO,tD,tA,n-1);
+            System.out.println("Mover 1 disco de " + tO + " a " + tD);
+            torresHanoiR(tA,tO,tD,n-1);
+        }
+    }
+    
+    public static void main(String[] args) {
+        torresHanoi("origen","aux","destino",3);
+    }
+}
+   
