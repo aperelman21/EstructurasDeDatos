@@ -1,0 +1,54 @@
+public static <T extends Comparable<T>> ListaDesordenada<T> mezclaListas(ListaOrdenada[] listas){
+        if(listas==null || listas.length==0)
+            return null;
+        ListaDesordenada<T> resp = new ListaDesordenada();
+        Iterator<T>[] it;
+        it = new Iterator[listas.length];
+        Object[] valores;
+        valores = new Object[it.length];
+        int nulos = 0;
+        for (int i = 0; i<listas.length;i++) { // este loop crea un arreglo de iteradores y uno de valores.
+            if(listas[i]!=null && !listas[i].estaVacia()){
+                it[i] = listas[i].iterator();    
+                valores[i]= it[i].next(); 
+            }
+            else{
+                it[i] = null;
+                valores[i] = null;
+                nulos ++;
+            }
+        }
+        while(nulos!=it.length){
+            T min =null;
+            int lugarMin = -1;
+            int j = 0;
+            boolean bandera = false;
+            while(!bandera && j<listas.length){
+                if(valores[j] != null){
+                    min = (T) valores[j];
+                    lugarMin = j;
+                    bandera = true;
+                }
+                j++;       
+            }
+            if(lugarMin!= -1){
+                for(int k=j;j<it.length;j++)
+                    if(valores[k]!=null && min.compareTo((T)valores[k])>0){
+                        min = (T)valores[k];
+                        lugarMin = k;
+                    }
+                resp.agregaFinal(min);
+                if(!it[lugarMin].hasNext()){
+                    valores[lugarMin] = null;
+                    it[lugarMin] = null;
+                    nulos++;
+                }
+                else
+                    valores[lugarMin]= it[lugarMin].next();   
+            }
+            else
+                nulos = it.length;
+        }
+        return resp;
+            
+    }
